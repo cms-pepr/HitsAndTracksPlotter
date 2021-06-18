@@ -15,7 +15,7 @@ def parseArgs():
     parsers = parser.add_subparsers(dest='mode')
     interactive = parsers.add_parser("interactive", help="Launch and interactive dash session")
     output = parsers.add_parser("output", help="Produce plots as output (not interactive)")
-    output.add_argument("-d", "--dataset", default="Gun50Part_CHEPDef_fineCalo_nano_default.root", type=str, help="Input file")
+    output.add_argument("-d", "--dataset", default="Gun10Part_CHEPDef_fineCalo_nano_default.root", type=str, help="Input file")
     output.add_argument("-e", "--event", default=1, type=int, help="Event number to show")
     output.add_argument("-o", "--outputFile", default="event_display", type=str, help="Output file")
     output.add_argument("--outDir", default="plots/", type=str, help="Output plots directory")
@@ -165,12 +165,12 @@ if __name__ == '__main__':
    elif args.mode == 'output':
       static_plot_opts = {'hitTypes':['RecHitHGC'],
                    'detectors':[],
-                   'colormode':'CaloPartIdx',
+                   'colormode':'MergedSimClusterIdx',
                    'pcolormode':'index', 
                    'particles':'CaloPart',
                    'simclusters':'MergedSimCluster',
                    'event':args.event,
-                   'nHitFilter':20, 
+                   'nHitFilter':60, 
                    'dataset':args.dataset}
       fig = go.Figure(draw_plots(static_plot_opts['hitTypes'], static_plot_opts['detectors'], static_plot_opts['colormode'], static_plot_opts['pcolormode'], static_plot_opts['particles'], static_plot_opts['simclusters'], static_plot_opts['event'], static_plot_opts['nHitFilter'], static_plot_opts['dataset']))
       if not os.path.exists(args.outDir):
